@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bpncof2v6gajq"]
+
+[ext_resource type="Script" uid="uid://c3c7cny8g8q7f" path="res://Testes/enemy.gd" id="1_yhb46"]
+[ext_resource type="Texture2D" uid="uid://bx7nuvqqncprq" path="res://Testes/icon.svg" id="2_bonb4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k5ier"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_bonb4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_216o8"]
+size = Vector2(116, 118)
+
+[node name="enemy" type="CharacterBody2D" unique_id=250368657]
+script = ExtResource("1_yhb46")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1185422785]
+modulate = Color(0.84313726, 0, 0.14901961, 1)
+sprite_frames = SubResource("SpriteFrames_k5ier")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1012985569]
+shape = SubResource("RectangleShape2D_216o8")
