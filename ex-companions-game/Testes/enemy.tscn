@@ -2,27 +2,86 @@
 
 [ext_resource type="Script" uid="uid://c3c7cny8g8q7f" path="res://Testes/enemy.gd" id="1_yhb46"]
 [ext_resource type="Texture2D" uid="uid://bx7nuvqqncprq" path="res://Testes/icon.svg" id="2_bonb4"]
+[ext_resource type="Texture2D" uid="uid://csp1v26px7wo0" path="res://Testes/attacking.png" id="2_yhb46"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_216o8"]
+size = Vector2(116, 118)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bonb4"]
+atlas = ExtResource("2_yhb46")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6ek8"]
+atlas = ExtResource("2_yhb46")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b5n7v"]
+atlas = ExtResource("2_yhb46")
+region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_k5ier"]
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_bonb4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6ek8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b5n7v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6ek8")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("2_bonb4")
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_216o8"]
-size = Vector2(116, 118)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yhb46"]
+size = Vector2(131, 130)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bonb4"]
+size = Vector2(201.13867, 198)
 
 [node name="enemy" type="CharacterBody2D" unique_id=250368657]
 script = ExtResource("1_yhb46")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1185422785]
-modulate = Color(0.84313726, 0, 0.14901961, 1)
-sprite_frames = SubResource("SpriteFrames_k5ier")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1012985569]
 shape = SubResource("RectangleShape2D_216o8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1185422785]
+modulate = Color(0.9074038, 0, 0.026757617, 1)
+sprite_frames = SubResource("SpriteFrames_k5ier")
+animation = &"attack"
+autoplay = "default"
+
+[node name="hurtbox" type="Area2D" parent="." unique_id=1789069451]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox" unique_id=749347778]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_yhb46")
+debug_color = Color(0.84780556, 0.1303314, 0, 0.41960785)
+
+[node name="hitbox" type="Area2D" parent="." unique_id=421210454]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" unique_id=955194785]
+position = Vector2(0.43066788, -2)
+shape = SubResource("RectangleShape2D_bonb4")
+disabled = true
+
+[node name="Timer_attack" type="Timer" parent="." unique_id=1345869694]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="Timer_attack" to="." method="_on_timer_attack_timeout"]
