@@ -17,6 +17,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_216o8"]
 size = Vector2(116, 118)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g40ei"]
+size = Vector2(121, 121)
+
 [node name="player" type="CharacterBody2D" unique_id=250368657]
 script = ExtResource("1_g40ei")
 
@@ -25,3 +28,10 @@ sprite_frames = SubResource("SpriteFrames_k5ier")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1012985569]
 shape = SubResource("RectangleShape2D_216o8")
+
+[node name="hurtbox" type="Area2D" parent="." unique_id=783304610]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox" unique_id=1469659059]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_g40ei")
+debug_color = Color(0.84780556, 0.1303314, 0, 0.41960785)
