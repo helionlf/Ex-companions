@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 @export var speed = 100.0
-@export var life = 5
+@export var health = 5
 
 @export var chase_range = 500.0
 @export var attack_range = 150.0
@@ -41,9 +41,9 @@ func attack():
 	#await $AnimatedSprite2D.animation_finished
 	$hitbox/CollisionShape2D.disabled = true
 
-func take_damage(damage):
+func take_damage(amount):
 	print("inimigo tomou dano")
-	life -= damage
+	health -= amount
 
 #FUNÇÕES AUXILIARES --------------------------------------------------------------------------------
 
@@ -61,8 +61,3 @@ func look_target():
 
 func _on_timer_attack_timeout() -> void:
 	can_attack = true
-
-#TROCAR POR AREA PARA FAZER HURTBOX NO PLAYER
-func _on_hitbox_body_entered(body: Node2D) -> void:
-	if body.get_name() == "player": #aqui adiciona todos q podem tomar dano
-		body.take_damage(1)
