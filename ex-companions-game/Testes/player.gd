@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 @export var speed = 300.0
-@export var life = 5
+@export var health = 5
 
 
 func _physics_process(_delta: float) -> void:
@@ -22,6 +22,6 @@ func _physics_process(_delta: float) -> void:
 func attack():
 	print("jogador atacou")
 
-func take_damage(damage):
+func take_damage(amount):
 	print("jogador tomou dano")
-	life -= damage
+	health -= amount
