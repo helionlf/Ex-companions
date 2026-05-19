@@ -17,11 +17,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_216o8"]
 size = Vector2(116, 118)
 
-[node name="player" type="CharacterBody2D" unique_id=250368657]
+[node name="player" type="CharacterBody2D" unique_id=250368657 groups=["Player"]]
+position = Vector2(603, 241)
 script = ExtResource("1_g40ei")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1185422785]
 sprite_frames = SubResource("SpriteFrames_k5ier")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1012985569]
+position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_216o8")
