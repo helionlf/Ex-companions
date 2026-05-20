@@ -18,16 +18,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_216o8"]
 size = Vector2(116, 118)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g40ei"]
-size = Vector2(121, 121)
-
-[node name="player" type="CharacterBody2D" unique_id=250368657]
+[node name="player" type="CharacterBody2D" unique_id=250368657 groups=["Player"]]
 script = ExtResource("1_g40ei")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1185422785]
 sprite_frames = SubResource("SpriteFrames_k5ier")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1012985569]
+position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_216o8")
 
 [node name="hurtbox" type="Area2D" parent="." unique_id=783304610 node_paths=PackedStringArray("owner_node") groups=["hurtbox"]]
@@ -36,7 +34,7 @@ owner_node = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox" unique_id=1469659059]
 position = Vector2(0.5, 0.5)
-shape = SubResource("RectangleShape2D_g40ei")
+shape = SubResource("RectangleShape2D_216o8")
 debug_color = Color(0.84780556, 0.1303314, 0, 0.41960785)
 
 [connection signal="area_entered" from="hurtbox" to="hurtbox" method="_on_area_entered"]
