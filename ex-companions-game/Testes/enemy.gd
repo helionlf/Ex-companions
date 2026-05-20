@@ -1,31 +1,64 @@
 extends CharacterBody2D
 
 
-@export var speed = 65.0
+@export var speed = 100.0
+@export var health = 5
 
 @export var chase_range = 500.0
-@export var attack_range = 200.0
+@export var attack_range = 150.0
 
 @export var target: CharacterBody2D
+
+@onready var time = $Timer_attack
+
+var can_attack = true
 
 
 func _physics_process(_delta: float) -> void:
 	#velocity = Vector2.ZERO
 
-	#if chase_player() and !attack_player():
-		#var direction = (target.global_position - global_position).normalized()
-		#velocity = direction * speed
+	if chase_player() and !attack_player():
+		var direction = (target.global_position - global_position).normalized()
+		velocity = direction * speed
+		look_target()
 	
-	#f attack_player():
-		#print("atacando")
+	if attack_player() and can_attack:
+		look_target()
+		attack()
+		can_attack = false
+		time.start()
 
 	#move_and_slide()
 	#move_and_collide(velocity * _delta)
 	pass
 
+func attack():
+	print("inimigo atacou")
+	#$AnimatedSprite2D.stop()
+	#$AnimatedSprite2D.play("attack")
+	$hitbox/CollisionShape2D.disabled = false
+	#aqyui troca o time por esperar animação acabar
+	await get_tree().create_timer(1.0).timeout
+	#await $AnimatedSprite2D.animation_finished
+	$hitbox/CollisionShape2D.disabled = true
+
+func take_damage(amount):
+	print("inimigo tomou dano")
+	health -= amount
+
+#FUNÇÕES AUXILIARES --------------------------------------------------------------------------------
 
 func chase_player():
 	return global_position.distance_to(target.global_position) < chase_range
-
 func attack_player():
 	return global_position.distance_to(target.global_position) < attack_range
+func look_target():
+	if target.global_position.x > global_position.x:
+		$AnimatedSprite2D.flip_h = false
+	else:
+		$AnimatedSprite2D.flip_h = true
+
+#CONEXÕES ------------------------------------------------------------------------------------------
+
+func _on_timer_attack_timeout() -> void:
+	can_attack = true

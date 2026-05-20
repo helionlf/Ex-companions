@@ -1,7 +1,8 @@
 extends CharacterBody2D
 
 
-@export var speed = 100.0
+@export var speed = 300.0
+@export var health = 5
 
 
 func _physics_process(_delta: float) -> void:
@@ -17,3 +18,10 @@ func _physics_process(_delta: float) -> void:
 		velocity.y = move_toward(velocity.y, 0, speed)
 
 	move_and_slide()
+
+func attack():
+	print("jogador atacou")
+
+func take_damage(amount):
+	print("jogador tomou dano")
+	health -= amount
