@@ -15,22 +15,22 @@ var can_attack = true
 
 
 func _physics_process(_delta: float) -> void:
-	#velocity = Vector2.ZERO
+	velocity = Vector2.ZERO
 
-	#if chase_player() and !attack_player():
-		#var direction = (target.global_position - global_position).normalized()
-		#velocity = direction * speed
-		#look_target()
+	if chase_player() and !attack_player():
+		var direction = (target.global_position - global_position).normalized()
+		velocity = direction * speed
+		look_target()
 	
-	#if attack_player() and can_attack:
-		#look_target()
-		#attack()
-		#can_attack = false
-		#time.start()
+	if attack_player() and can_attack:
+		look_target()
+		attack()
+		can_attack = false
+		time.start()
 
 	#move_and_slide()
-	#move_and_collide(velocity * _delta)
-	pass
+	move_and_collide(velocity * _delta)
+
 
 func attack():
 	print("inimigo atacou")
