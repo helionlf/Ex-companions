@@ -4,8 +4,8 @@ extends CharacterBody2D
 @export var speed = 65.0
 @export var health = 5
 
-@export var chase_range = 500.0
-@export var attack_range = 150.0
+@export var chase_range = 100.0
+@export var attack_range = 15.0
 
 @export var target: CharacterBody2D
 

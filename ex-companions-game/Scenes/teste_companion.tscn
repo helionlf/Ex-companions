@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://b1ngqk71yj2v7"]
 
-[ext_resource type="Script" path="res://Testes/teste_companion.gd" id="1_2xmlj"]
+[ext_resource type="Script" uid="uid://ma4ivt4np7l6" path="res://Scripts/teste_companion.gd" id="1_2xmlj"]
 [ext_resource type="Texture2D" uid="uid://btopn7tfx3q37" path="res://Testes/Dungeon_Character.png" id="1_3xrrq"]
-[ext_resource type="Script" uid="uid://dota6f4ux4v5e" path="res://Testes/hurtbox.gd" id="3_baj2b"]
-[ext_resource type="Script" uid="uid://csgtb5fiax586" path="res://Testes/hitbox.gd" id="4_8r4ol"]
+[ext_resource type="Script" uid="uid://dota6f4ux4v5e" path="res://Scripts/hurtbox.gd" id="3_baj2b"]
+[ext_resource type="Script" uid="uid://csgtb5fiax586" path="res://Scripts/hitbox.gd" id="4_8r4ol"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_baj2b"]
 size = Vector2(13, 15)
