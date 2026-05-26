@@ -6,17 +6,7 @@ extends CharacterBody2D
 
 
 func _physics_process(_delta: float) -> void:
-	var direction_x := Input.get_axis("ui_left", "ui_right")
-	var direction_y := Input.get_axis("ui_up", "ui_down")
-	
-	if direction_x:
-		velocity.x = direction_x * speed
-	elif direction_y:
-		velocity.y = direction_y * speed
-	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
-		velocity.y = move_toward(velocity.y, 0, speed)
-
+	handle_input()
 	move_and_slide()
 
 func attack():
@@ -25,3 +15,9 @@ func attack():
 func take_damage(amount):
 	print("jogador tomou dano")
 	health -= amount
+
+func handle_input():
+	var input := Vector2.ZERO
+	input = Input.get_vector("walk_feft", "walk_right", "walk_up", "walk_down")
+
+	velocity = input * speed
