@@ -5,6 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://djtiw6asvulim" path="res://Scenes/player.tscn" id="4_6c803"]
 [ext_resource type="PackedScene" uid="uid://bpncof2v6gajq" path="res://Scenes/enemy.tscn" id="4_cdtcn"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_avk8s"]
+vertices = PackedVector2Array(662, 90, 662, 214, 618, 214, 618, 166, 550, 166, 550, 198, 314, 198, 314, 166, 307, 166, 307, 138, 314, 138, 550, 138, 314, 122, 550, 122, 618, 138, 618, 90)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(7, 8, 9, 10), PackedInt32Array(4, 7, 10, 11), PackedInt32Array(10, 12, 13, 11), PackedInt32Array(3, 4, 11, 14), PackedInt32Array(0, 3, 14), PackedInt32Array(0, 14, 15)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(297, 96, 297, 216, 567, 216, 567, 183, 601, 183, 601, 232, 679, 232, 679, 64, 601, 64, 601, 96, 592, 96, 592, 112, 576, 112, 576, 96)])
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6c803"]
 texture = ExtResource("1_3nhmk")
 0:0/0 = 0
@@ -142,7 +147,10 @@ size = Vector2(16, 16)
 
 [node name="Lobby" type="Node2D" unique_id=215627956]
 
-[node name="TileMap" type="TileMap" parent="." unique_id=897305886]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=981539682]
+navigation_polygon = SubResource("NavigationPolygon_avk8s")
+
+[node name="TileMap" type="TileMap" parent="NavigationRegion2D" unique_id=897305886]
 texture_filter = 1
 tile_set = SubResource("TileSet_cdtcn")
 format = 2
@@ -166,5 +174,5 @@ position = Vector2(386, 167)
 position = Vector2(367, 168)
 
 [node name="enemy" parent="." unique_id=1907062819 node_paths=PackedStringArray("target") groups=["Enemy"] instance=ExtResource("4_cdtcn")]
-position = Vector2(530, 137)
+position = Vector2(616, 152)
 target = NodePath("../player")

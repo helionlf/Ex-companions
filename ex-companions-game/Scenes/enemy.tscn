@@ -54,6 +54,8 @@ position = Vector2(1.9073486e-06, 0)
 shape = SubResource("RectangleShape2D_bonb4")
 disabled = true
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1638960892]
+
 [node name="Timer_attack" type="Timer" parent="." unique_id=1345869694]
 wait_time = 2.0
 one_shot = true

@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-@export var speed = 65.0
+@export var speed = 46.0
 @export var health = 5
 
 @export var chase_range = 100.0
@@ -9,6 +9,7 @@ extends CharacterBody2D
 
 @export var target: CharacterBody2D
 
+@onready var navigation = $NavigationAgent2D
 @onready var time = $Timer_attack
 
 var can_attack = true
@@ -18,7 +19,9 @@ func _physics_process(_delta: float) -> void:
 	velocity = Vector2.ZERO
 
 	if chase_player() and !attack_player():
-		var direction = (target.global_position - global_position).normalized()
+		navigation.target_position = target.global_position
+		var next_position = navigation.get_next_path_position()
+		var direction = (next_position - global_position).normalized()
 		velocity = direction * speed
 		look_target()
 	
