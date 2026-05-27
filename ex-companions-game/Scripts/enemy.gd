@@ -24,15 +24,15 @@ func _physics_process(_delta: float) -> void:
 		var direction = (next_position - global_position).normalized()
 		velocity = direction * speed
 		look_target()
-	
+
 	if attack_player() and can_attack:
 		look_target()
 		attack()
 		can_attack = false
 		time.start()
 
-	#move_and_slide()
-	move_and_collide(velocity * _delta)
+	move_and_slide()
+	#move_and_collide(velocity * _delta)
 
 
 func attack():
