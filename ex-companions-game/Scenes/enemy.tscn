@@ -5,8 +5,8 @@
 [ext_resource type="Script" uid="uid://dota6f4ux4v5e" path="res://Scripts/hurtbox.gd" id="4_e6ek8"]
 [ext_resource type="Script" uid="uid://csgtb5fiax586" path="res://Scripts/hitbox.gd" id="5_b5n7v"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_216o8"]
-size = Vector2(12, 12)
+[sub_resource type="CircleShape2D" id="CircleShape2D_287tu"]
+radius = 6.0827627
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_k5ier"]
 animations = [{
@@ -26,10 +26,11 @@ size = Vector2(14, 14)
 size = Vector2(20.000004, 20)
 
 [node name="enemy" type="CharacterBody2D" unique_id=250368657]
+motion_mode = 1
 script = ExtResource("1_yhb46")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1012985569]
-shape = SubResource("RectangleShape2D_216o8")
+shape = SubResource("CircleShape2D_287tu")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1185422785]
 modulate = Color(0.9074038, 0, 0.026757617, 1)
@@ -53,6 +54,9 @@ owner_node = NodePath("..")
 position = Vector2(1.9073486e-06, 0)
 shape = SubResource("RectangleShape2D_bonb4")
 disabled = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1638960892]
+debug_enabled = true
 
 [node name="Timer_attack" type="Timer" parent="." unique_id=1345869694]
 wait_time = 2.0
