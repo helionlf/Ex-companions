@@ -26,6 +26,7 @@ size = Vector2(14, 14)
 size = Vector2(20.000004, 20)
 
 [node name="enemy" type="CharacterBody2D" unique_id=250368657]
+motion_mode = 1
 script = ExtResource("1_yhb46")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1012985569]
