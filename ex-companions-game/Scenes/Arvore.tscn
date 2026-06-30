@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dc2lwgapkawyl"]
+
+[ext_resource type="Texture2D" uid="uid://de08bbpejbdfe" path="res://Testes/Basic_Plants.png" id="1_wm2v5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uhvrl"]
+size = Vector2(12, 13)
+
+[node name="Arvore" type="StaticBody2D" unique_id=1084036422]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1605000975]
+texture_filter = 1
+texture = ExtResource("1_wm2v5")
+hframes = 6
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1681320105]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_uhvrl")
