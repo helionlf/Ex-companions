@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bl6ehs1kycgjq" path="res://Scripts/mapa_procedural_teste.gd" id="1_m8m8c"]
 [ext_resource type="Texture2D" uid="uid://rssxqoxeh5hm" path="res://Testes/Grass.png" id="2_anrwn"]
+[ext_resource type="Script" uid="uid://c0l68t7sljakd" path="res://Scenes/mini_mapa.gd" id="3_anrwn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u8ur3"]
 texture = ExtResource("2_anrwn")
@@ -88,3 +89,15 @@ texture_filter = 1
 tile_set = SubResource("TileSet_v6jbt")
 
 [node name="Objeto" type="Node2D" parent="." unique_id=1002250993]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=821525698]
+
+[node name="MiniMapa" type="TextureRect" parent="CanvasLayer" unique_id=1450871136]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 150)
+offset_right = 150.0
+offset_bottom = 150.0
+expand_mode = 1
+script = ExtResource("3_anrwn")
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer" unique_id=1098975896]
