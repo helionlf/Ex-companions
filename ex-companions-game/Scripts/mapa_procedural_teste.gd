@@ -9,8 +9,8 @@ const Pedra = preload("res://Scenes/pedra.tscn")
 const saida = preload("res://Scenes/saida.tscn")
 
 const Chunk_Size = 16
-const Map_chunks_x = 16
-const Map_chunks_y = 16
+const Map_chunks_x = 2
+const Map_chunks_y = 2
 
 const Chance_Arvore = 0.001
 const Chance_Pedra = 0.02

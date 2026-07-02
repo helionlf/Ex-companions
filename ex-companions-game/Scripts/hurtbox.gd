@@ -8,10 +8,10 @@ func take_hit(damage):
 		owner_node.take_damage(damage)
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.owner_node == owner_node:
-		return
-
 	if not area.is_in_group("hitbox"):
+		return
+		
+	if area.owner_node == owner_node:
 		return
 
 	take_hit(area.damage)

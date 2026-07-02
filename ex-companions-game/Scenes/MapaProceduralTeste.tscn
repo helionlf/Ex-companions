@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bl6ehs1kycgjq" path="res://Scripts/mapa_procedural_teste.gd" id="1_m8m8c"]
 [ext_resource type="Texture2D" uid="uid://rssxqoxeh5hm" path="res://Testes/Grass.png" id="2_anrwn"]
-[ext_resource type="Script" uid="uid://c0l68t7sljakd" path="res://Scenes/mini_mapa.gd" id="3_anrwn"]
+[ext_resource type="Script" uid="uid://c0l68t7sljakd" path="res://Scripts/mini_mapa.gd" id="3_anrwn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u8ur3"]
 texture = ExtResource("2_anrwn")
