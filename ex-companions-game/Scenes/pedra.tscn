@@ -1,18 +1,33 @@
 [gd_scene format=3 uid="uid://cwlb4jfksjedw"]
 
-[ext_resource type="Texture2D" uid="uid://de08bbpejbdfe" path="res://Testes/Basic_Plants.png" id="1_eitgx"]
+[ext_resource type="Texture2D" uid="uid://bghj4xmc6thye" path="res://Testes/Basic_Grass_Biom_things.png" id="1_eitgx"]
+[ext_resource type="Script" uid="uid://dmio1cooailrm" path="res://Scenes/pedra.gd" id="1_sljdl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sljdl"]
 size = Vector2(12, 12)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1xul"]
+size = Vector2(14.062491, 14.062491)
+
 [node name="Pedra" type="StaticBody2D" unique_id=509825122]
+scale = Vector2(1.2800008, 1.2800008)
+script = ExtResource("1_sljdl")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1823695391]
 texture_filter = 1
 texture = ExtResource("1_eitgx")
-hframes = 6
-vframes = 2
-frame = 11
+hframes = 9
+vframes = 5
+frame = 17
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=602440464]
 shape = SubResource("RectangleShape2D_sljdl")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1386456018]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=564720834]
+position = Vector2(-2.328305e-07, -2.328305e-07)
+shape = SubResource("RectangleShape2D_k1xul")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

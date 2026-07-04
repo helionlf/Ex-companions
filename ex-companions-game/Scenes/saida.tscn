@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://f6hj2gcqc5r6"]
 
 [ext_resource type="Texture2D" uid="uid://de08bbpejbdfe" path="res://Testes/Basic_Plants.png" id="1_a5idk"]
+[ext_resource type="Script" uid="uid://bpoh2stmho0bn" path="res://Scripts/saida.gd" id="1_ql3va"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ql3va"]
 size = Vector2(13, 10)
@@ -9,6 +10,7 @@ size = Vector2(13, 10)
 radius = 9.0
 
 [node name="Saida" type="StaticBody2D" unique_id=229750585]
+script = ExtResource("1_ql3va")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1838966489]
 position = Vector2(-0.5, 3)
@@ -22,7 +24,12 @@ vframes = 2
 frame = 1
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1443113595]
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=756782349]
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_vplsk")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

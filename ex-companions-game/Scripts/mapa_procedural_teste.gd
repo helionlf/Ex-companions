@@ -7,18 +7,21 @@ const Player = preload("res://Scenes/player.tscn")
 const Arvore = preload("res://Scenes/Arvore.tscn")
 const Pedra = preload("res://Scenes/pedra.tscn")
 const saida = preload("res://Scenes/saida.tscn")
+const Spawner = preload("res://Scenes/spawner.tscn")
 
 const Chunk_Size = 16
-const Map_chunks_x = 2
-const Map_chunks_y = 2
+const Map_chunks_x = 10
+const Map_chunks_y = 10
 
-const Chance_Arvore = 0.001
+const Chance_Spawner = 0.002
+const Chance_Arvore = 0.003
 const Chance_Pedra = 0.02
 const Chance_Saida = 0.009
 
 var rng = RandomNumberGenerator.new()
 var player_instanciado: Node2D = null
 var saida_spawnada: bool = false
+
 
 func _process(_delta: float) -> void:
 	if player_instanciado != null:
@@ -65,10 +68,15 @@ func decorar_tile(x: int, y: int) -> void:
 		return
 	
 	# Tiramos o bloco da saída daqui de dentro!
-	if valor_sorteado < Chance_Arvore:
+	if valor_sorteado < Chance_Spawner:
+		spawnar_objeto_alinhado(Spawner, posicao_local)
+		$CanvasLayer/MiniMapa.registrar_pixel(x, y, "spawner")
+		
+	elif valor_sorteado < (Chance_Spawner + Chance_Arvore):
 		spawnar_objeto_alinhado(Arvore, posicao_local)
 		$CanvasLayer/MiniMapa.registrar_pixel(x, y, "arvore")
-	elif valor_sorteado < (Chance_Arvore + Chance_Pedra):
+		
+	elif valor_sorteado < (Chance_Spawner + Chance_Arvore + Chance_Pedra):
 		spawnar_objeto_alinhado(Pedra, posicao_local)
 		$CanvasLayer/MiniMapa.registrar_pixel(x, y, "pedra")
 

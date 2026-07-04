@@ -1,18 +1,33 @@
 [gd_scene format=3 uid="uid://dc2lwgapkawyl"]
 
-[ext_resource type="Texture2D" uid="uid://de08bbpejbdfe" path="res://Testes/Basic_Plants.png" id="1_wm2v5"]
+[ext_resource type="Script" uid="uid://da5vr3ae113db" path="res://Scenes/arvore.gd" id="1_uhvrl"]
+[ext_resource type="Texture2D" uid="uid://bghj4xmc6thye" path="res://Testes/Basic_Grass_Biom_things.png" id="1_wm2v5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhvrl"]
-size = Vector2(12, 13)
+size = Vector2(16, 27.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dgosc"]
+size = Vector2(18, 30)
 
 [node name="Arvore" type="StaticBody2D" unique_id=1084036422]
+script = ExtResource("1_uhvrl")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1605000975]
 texture_filter = 1
+position = Vector2(0, -3)
 texture = ExtResource("1_wm2v5")
-hframes = 6
-vframes = 2
+hframes = 9
+vframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1681320105]
-position = Vector2(0, 1)
+position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_uhvrl")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2123584523]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1324834318]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_dgosc")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

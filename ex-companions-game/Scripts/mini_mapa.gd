@@ -12,6 +12,7 @@ const cor_grama = Color(0.2, 0.6, 0.2, 1)
 const cor_arvore = Color(0.1, 0.4, 0.1, 1)
 const cor_pedra = Color(0.5, 0.5, 0.5, 1)
 const cor_player = Color(0.9, 0.2, 0.2, 1)
+const cor_spawner = Color(0.5, 0, 0, 1)
 
 var image_mapa: Image
 var imagem_nevoa: Image
@@ -20,21 +21,22 @@ var atlas_textura: AtlasTexture
 
 const Raio_Visao = 10
 
-# --- CONFIGURAÇÕES DINÂMICAS DE ZOOM ---
-var tamanho_do_zoom: float = 32.0  # Começa com 32 tiles visíveis
-const ZOOM_MINIMO: float = 24.0    # Máximo de zoom aproximado (perto)
-const ZOOM_MAXIMO: float = 400.0   # Máximo de zoom afastado (longe)
-const VELOCIDADE_ZOOM: float = 4.0  # Quantos tiles mudam por clique no scroll
+var tamanho_do_zoom: float = 32.0  
+const ZOOM_MINIMO: float = 24.0    
+const ZOOM_MAXIMO: float = 400.0   
+const VELOCIDADE_ZOOM: float = 4.0  
 
 var tela_cheia: bool = false
 var tamanho_original: Vector2
 var posicao_original: Vector2
 
-# --- CONTROLE DA CÂMERA E ARRASTO ---
 var arrastando: bool = false
 var centro_camera: Vector2 = Vector2.ZERO
 var usando_camera_manual: bool = false
 var ultima_posicao_mouse: Vector2 = Vector2.ZERO
+
+# --- NOVA REFERÊNCIA PARA A ETIQUETA ---
+@onready var Etiqueta: Label = $Etiqueta # Garanta que o nome e caminho estejam certos aqui
 
 func _ready() -> void:
 	if get_parent() and get_parent().get_parent() and "Map_chunks_x" in get_parent().get_parent():
@@ -59,25 +61,22 @@ func _ready() -> void:
 	atlas_textura.atlas = textura_final
 	texture = atlas_textura
 	
-	# Inicializa o centro da câmera no meio do mapa
 	centro_camera = Vector2(map_width / 2.0, map_length / 2.0)
+	
+	if Etiqueta:
+		Etiqueta.text = ""
 	
 	atualizar_minimapa_visual(Vector2i(-1, -1))
 
-# --- CAPTURANDO SCROLL E ARRASTO (MÉTODO GUI) ---
 func _gui_input(event: InputEvent) -> void:
-	# 1. CAPTURA DO SCROLL DO MOUSE (ZOOM)
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
-			# Scroll para cima: Aproxima a câmera (diminui a área visível)
 			tamanho_do_zoom = clampf(tamanho_do_zoom - VELOCIDADE_ZOOM, ZOOM_MINIMO, min(ZOOM_MAXIMO, map_width))
 			_forcar_update_com_player()
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
-			# Scroll para baixo: Afasta a câmera (aumenta a área visível)
 			tamanho_do_zoom = clampf(tamanho_do_zoom + VELOCIDADE_ZOOM, ZOOM_MINIMO, min(ZOOM_MAXIMO, map_width))
 			_forcar_update_com_player()
 
-		# 2. CAPTURA DO CLIQUE PARA ARRASTAR
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				arrastando = true
@@ -86,19 +85,58 @@ func _gui_input(event: InputEvent) -> void:
 			else:
 				arrastando = false
 
-	# 3. MOVIMENTO DO ARRASTO (PAN)
 	if event is InputEventMouseMotion and arrastando:
-		# Calcula quanto o mouse andou em pixels na tela
 		var delta_mouse = event.position - ultima_posicao_mouse
 		ultima_posicao_mouse = event.position
 		
-		# Converte o movimento de pixels da tela para proporção de tiles baseada no zoom atual
 		var pixels_por_tile_x = size.x / tamanho_do_zoom
 		var pixels_por_tile_y = size.y / tamanho_do_zoom
 		
-		# Movemos a câmera na direção oposta do arrasto para dar a sensação natural de puxar o mapa
 		centro_camera.x -= delta_mouse.x / pixels_por_tile_x
 		centro_camera.y -= delta_mouse.y / pixels_por_tile_y
+		
+	# --- NOVO: SE APENAS MEXER O MOUSE (SEM ARRASTAR), ATUALIZA A ETIQUETA ---
+	if event is InputEventMouseMotion and not arrastando:
+		processar_identificacao_do_mouse(event.position)
+
+func processar_identificacao_do_mouse(pos_mouse_local: Vector2) -> void:
+	if not Etiqueta: return
+	
+	# 1. Descobre qual a proporção de 0.0 a 1.0 de onde o mouse está no quadrado do mapa
+	var proporcao_x = pos_mouse_local.x / size.x
+	var proporcao_y = pos_mouse_local.y / size.y
+	
+	# 2. Transforma essa proporção em coordenadas reais de TILES baseadas na região atual da câmera
+	var tile_x = int(atlas_textura.region.position.x + (proporcao_x * atlas_textura.region.size.x))
+	var tile_y = int(atlas_textura.region.position.y + (proporcao_y * atlas_textura.region.size.y))
+	
+	# Segurança: garante que o mouse está dentro dos limites da imagem
+	if tile_x >= 0 and tile_x < map_width and tile_y >= 0 and tile_y < map_length:
+		# 3. Importante: Só identifica se aquela parte da névoa já foi REVELADA!
+		var nevoa_revelada = imagem_nevoa.get_pixel(tile_x, tile_y).r > 0.5
+		
+		if nevoa_revelada:
+			var cor_no_pixel = image_mapa.get_pixel(tile_x, tile_y)
+			
+			# Compara a cor do pixel com margem de tolerância para ignorar perda de precisão
+			var nome_objeto = ""
+			if cores_sao_parecidas(cor_no_pixel, cor_arvore):
+				nome_objeto = "Árvore"
+			elif cores_sao_parecidas(cor_no_pixel, cor_pedra):
+				nome_objeto = "Pedra"
+			elif cores_sao_parecidas(cor_no_pixel, Color(1, 0.8, 0, 1)): # Cor da saída
+				nome_objeto = "Saída"
+			elif cores_sao_parecidas(cor_no_pixel, cor_spawner):
+				nome_objeto = "Ninho de inimigos"
+				
+			# 4. Atualiza e posiciona a Label perto do ponteiro do mouse
+			if nome_objeto != "":
+				Etiqueta.text = nome_objeto
+				Etiqueta.position = pos_mouse_local + Vector2(15, 10) # Afasta um pouquinho do ponteiro
+				return
+
+	# Se o mouse estiver na grama, na névoa preta ou fora do mapa, apaga o texto
+	Etiqueta.text = ""
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Abrir"):
@@ -114,7 +152,8 @@ func _input(event: InputEvent) -> void:
 
 func alternar_tela_cheia() -> void:
 	tela_cheia = not tela_cheia
-	usando_camera_manual = false # Reseta a câmera para focar no player ao mudar de modo
+	usando_camera_manual = false 
+	if Etiqueta: Etiqueta.text = "" # Limpa ao mudar de tela
 	
 	if tela_cheia:
 		expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -126,15 +165,14 @@ func alternar_tela_cheia() -> void:
 	else:
 		size = tamanho_original
 		position = posicao_original
-		tamanho_do_zoom = 32.0
-		
+		tamanho_do_zoom = 32.0 
 		if get_parent().get_parent().player_instanciado != null:
 			var p_node = get_parent().get_parent().player_instanciado
 			var tm_node = get_parent().get_parent().tile_map_layer
 			var player_tile = tm_node.local_to_map(tm_node.to_local(p_node.global_position))
 			centro_camera.x = player_tile.x
 			centro_camera.y = player_tile.y
-	
+			
 	_forcar_update_com_player()
 
 func _forcar_update_com_player() -> void:
@@ -151,6 +189,7 @@ func registrar_pixel(x: int, y: int, tipo: String) -> void:
 		"pedra": cor = cor_pedra
 		"grama": cor = cor_grama
 		"saida": cor = Color(1, 0.8, 0, 1)
+		"spawner": cor = cor_spawner
 	image_mapa.set_pixel(x, y, cor)
 
 func remover_do_mapa(x: int, y: int) -> void:
@@ -160,7 +199,6 @@ func remover_do_mapa(x: int, y: int) -> void:
 func atualizar_minimapa_visual(player_tile_pos: Vector2i) -> void:
 	var exibicao: Image = Image.create(map_width, map_length, false, Image.FORMAT_RGBA8)
 	
-	# 1. Revela a névoa ao redor do jogador
 	if player_tile_pos.x >= 0 and player_tile_pos.x < map_width and player_tile_pos.y >= 0 and player_tile_pos.y < map_length:
 		for tx in range(player_tile_pos.x - Raio_Visao, player_tile_pos.x + Raio_Visao + 1):
 			for ty in range(player_tile_pos.y - Raio_Visao, player_tile_pos.y + Raio_Visao + 1):
@@ -168,7 +206,6 @@ func atualizar_minimapa_visual(player_tile_pos: Vector2i) -> void:
 					if Vector2(player_tile_pos).distance_to(Vector2(tx, ty)) <= Raio_Visao:
 						imagem_nevoa.set_pixel(tx, ty, Color(1, 1, 1, 1))
 	
-	# 2. Desenha o mapa e a névoa
 	for x in range(map_width):
 		for y in range(map_length):
 			var n = imagem_nevoa.get_pixel(x, y).r
@@ -177,7 +214,6 @@ func atualizar_minimapa_visual(player_tile_pos: Vector2i) -> void:
 			else:
 				exibicao.set_pixel(x, y, cor_nevoa)
 				
-	# 3. Desenha o jogador
 	if player_tile_pos.x >= 0 and player_tile_pos.x < map_width and player_tile_pos.y >= 0 and player_tile_pos.y < map_length:
 		exibicao.set_pixel(player_tile_pos.x, player_tile_pos.y, cor_player)
 	
@@ -187,13 +223,15 @@ func atualizar_minimapa_visual(player_tile_pos: Vector2i) -> void:
 		centro_camera.x = player_tile_pos.x
 		centro_camera.y = player_tile_pos.y
 	
-	# Aplica o corte final na imagem baseado no tamanho_do_zoom dinâmico do Scroll
 	var cant_x = centro_camera.x - (tamanho_do_zoom / 2.0)
 	var cant_y = centro_camera.y - (tamanho_do_zoom / 2.0)
 	
-	# Garante que a câmera não saia das bordas do mapa gerado
 	cant_x = clampf(cant_x, 0.0, max(0.0, map_width - tamanho_do_zoom))
 	cant_y = clampf(cant_y, 0.0, max(0.0, map_length - tamanho_do_zoom))
 	
-	# Atualiza a região visível do nosso AtlasTexture
 	atlas_textura.region = Rect2(cant_x, cant_y, tamanho_do_zoom, tamanho_do_zoom)
+
+func cores_sao_parecidas(c1: Color, c2: Color) -> bool:
+	# Checa se a diferença entre as cores é bem pequena (menos de 5%)
+	var margem = 0.05
+	return abs(c1.r - c2.r) < margem and abs(c1.g - c2.g) < margem and abs(c1.b - c2.b) < margem

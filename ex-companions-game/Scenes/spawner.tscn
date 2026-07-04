@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dcrn6o21cgnor"]
+
+[ext_resource type="Texture2D" uid="uid://bxvhb1mqik6xt" path="res://Testes/Free_Chicken_House.png" id="1_2bop2"]
+[ext_resource type="Script" uid="uid://blra8xwq3j5hi" path="res://Scenes/spawner.gd" id="1_mdv8j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mdv8j"]
+size = Vector2(34, 44)
+
+[node name="Spawner" type="StaticBody2D" unique_id=2131833027]
+script = ExtResource("1_mdv8j")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=255077754]
+texture_filter = 1
+texture = ExtResource("1_2bop2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=991946099]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_mdv8j")
