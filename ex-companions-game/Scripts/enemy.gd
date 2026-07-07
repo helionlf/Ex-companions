@@ -53,13 +53,18 @@ func _physics_process(_delta: float) -> void:
 		$AnimatedSprite2D.play("Andando") # Substitua pelo nome exato da animação de andar
 
 func attack():
-	print("inimigo atacou")
-	$hitbox/CollisionShape2D.disabled = false
+	var indicator = preload("res://Scenes/attackindicator.tscn").instantiate()
+	add_child(indicator)
+	indicator.position = Vector2.ZERO
+	indicator.play(10, 0.6)
 	await get_tree().create_timer(1.0).timeout
+	$hitbox/CollisionShape2D.disabled = false
+	await get_tree().create_timer(0.1).timeout
 	$hitbox/CollisionShape2D.disabled = true
+	
 
 func take_damage(amount):
-	print("inimigo tomou dano")
+	#print("inimigo tomou dano")
 	health -= amount
 
 # FUNÇÕES AUXILIARES -------------------------------------------------------------------------------

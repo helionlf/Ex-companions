@@ -172,9 +172,8 @@ position = Vector2(386, 167)
 [node name="TesteCompanion" parent="." unique_id=1145659430 instance=ExtResource("2_ssaqe")]
 position = Vector2(367, 168)
 
-[node name="enemy" parent="." unique_id=1907062819 node_paths=PackedStringArray("target") groups=["Enemy"] instance=ExtResource("4_cdtcn")]
+[node name="enemy" parent="." unique_id=1907062819 groups=["Enemy"] instance=ExtResource("4_cdtcn")]
 position = Vector2(601, 149)
-target = NodePath("../player")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1468367629]
 navigation_polygon = SubResource("NavigationPolygon_avk8s")

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://c6haryi2beiow"]
+
+[ext_resource type="Script" uid="uid://do6wyktc2hap8" path="res://Scripts/attack_indicator.gd" id="1_oigx3"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2etil"]
+load_path = "res://.godot/imported/12809087bec471df7e43fece5cb26e187f2eaf.png-e2e55d4ca1da71be698d59115162614c.ctex"
+
+[node name="attackIndicator" type="Node2D" unique_id=452585937]
+script = ExtResource("1_oigx3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1051842531]
+texture = SubResource("CompressedTexture2D_2etil")
