@@ -1,6 +1,6 @@
 extends Control
 
-@onready var lista_materiais = $Abas/Armas/ListaMaterias
+@onready var lista_materiais = $Abas/Materiais/ListaMaterias
 
 func _ready() -> void:
 	# A mochila começa invisível
@@ -33,17 +33,24 @@ func atualizar_interface() -> void:
 		if quantidade > 0:
 			var linha = HBoxContainer.new() # Coloca ícone e texto lado a lado
 			
-			# O Ícone do Item (Como você tem os ícones, depois você coloca a textura aqui)
+			# O Ícone do Item usando TextureRect
 			var icone = TextureRect.new()
 			icone.custom_minimum_size = Vector2(32, 32)
 			icone.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-			# icone.texture = load("res://caminho/do/seu/icone.png") # <--- DESCOMENTE QUANDO FOR USAR A IMAGEM
+			icone.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED # Evita que a imagem fique esticada/deformada
 			
-			# Opcional enquanto não põe a imagem: Um quadradinho colorido de placeholder
-			var cor_temp = ColorRect.new()
-			cor_temp.custom_minimum_size = Vector2(32, 32)
-			cor_temp.color = Color(0.5, 0.3, 0.1) # Marrom pra madeira
-			linha.add_child(cor_temp) # Troque 'cor_temp' por 'icone' depois
+			# --- A MÁGICA DAS IMAGENS AQUI ---
+			# Verifica o nome do item e carrega o sprite correto
+			match chave_item:
+				"madeira":
+					icone.texture = load("res://Testes/Basic Grass Biom things 1-1.png (2).png")
+				"pedra":
+					icone.texture = load("res://Testes/Basic Grass Biom things 1-1.png (1).png")
+				# "ovo":
+				# 	icone.texture = load("res://Caminho/Do/Seu/Ovo.png")
+			
+			# Adiciona a imagem na linha (Substituímos aquele cor_temp daqui!)
+			linha.add_child(icone) 
 			
 			# O Texto (Nome + Quantidade)
 			var nome_label = Label.new()
@@ -54,6 +61,6 @@ func atualizar_interface() -> void:
 			linha.add_child(nome_label)
 			lista_materiais.add_child(linha)
 			
-			# Adiciona um separador bonitinho embaixo (Estilo RPG)
+			# Adiciona um separador bonitinho embaixo
 			var separador = HSeparator.new()
 			lista_materiais.add_child(separador)

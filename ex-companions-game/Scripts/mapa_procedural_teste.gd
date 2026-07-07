@@ -10,8 +10,8 @@ const saida = preload("res://Scenes/saida.tscn")
 const Spawner = preload("res://Scenes/spawner.tscn")
 
 const Chunk_Size = 16
-const Map_chunks_x = 10
-const Map_chunks_y = 10
+const Map_chunks_x = 6
+const Map_chunks_y = 6
 
 const Chance_Spawner = 0.002
 const Chance_Arvore = 0.003

@@ -6,10 +6,12 @@
 bg_color = Color(0, 0, 0, 1)
 
 [node name="MochilaGUI" type="Control" unique_id=1280083051]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(1.8400002, 1.8400002)
 script = ExtResource("1_ct066")
 
 [node name="Fundo" type="Panel" parent="." unique_id=1072273022]
@@ -20,28 +22,33 @@ offset_bottom = 135.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_b5gur")
 
 [node name="Abas" type="TabContainer" parent="." unique_id=135820647]
+texture_filter = 1
 layout_mode = 0
 offset_right = 251.0
 offset_bottom = 166.0
 current_tab = 0
 
-[node name="Armas" type="ScrollContainer" parent="Abas" unique_id=1341961665]
+[node name="Materiais" type="ScrollContainer" parent="Abas" unique_id=561216355]
+texture_filter = 1
 custom_minimum_size = Vector2(251, 135)
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="ListaMaterias" type="VBoxContainer" parent="Abas/Armas" unique_id=1499368080]
+[node name="ListaMaterias" type="VBoxContainer" parent="Abas/Materiais" unique_id=1499368080]
+texture_filter = 1
 custom_minimum_size = Vector2(251, 135)
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Materiais" type="ScrollContainer" parent="Abas" unique_id=561216355]
+[node name="Armas" type="ScrollContainer" parent="Abas" unique_id=1341961665]
 visible = false
+texture_filter = 1
 custom_minimum_size = Vector2(251, 135)
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="ListaArmas" type="VBoxContainer" parent="Abas/Materiais" unique_id=1245230670]
+[node name="ListaArmas" type="VBoxContainer" parent="Abas/Armas" unique_id=1245230670]
+texture_filter = 1
 custom_minimum_size = Vector2(251, 135)
 layout_mode = 2
 theme_override_constants/separation = 5

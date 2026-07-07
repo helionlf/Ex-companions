@@ -110,3 +110,7 @@ offset_bottom = 23.0
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer" unique_id=1098975896]
 
 [node name="MochilaGUI" parent="CanvasLayer" unique_id=1280083051 instance=ExtResource("4_u8ur3")]
+offset_left = 375.0
+offset_top = 201.0
+offset_right = 415.0
+offset_bottom = 241.0
