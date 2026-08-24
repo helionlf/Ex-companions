@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dc2lwgapkawyl"]
 
-[ext_resource type="Script" uid="uid://da5vr3ae113db" path="res://Scenes/arvore.gd" id="1_uhvrl"]
+[ext_resource type="Script" uid="uid://da5vr3ae113db" path="res://Scripts/arvore.gd" id="1_uhvrl"]
 [ext_resource type="Texture2D" uid="uid://bghj4xmc6thye" path="res://Testes/Basic_Grass_Biom_things.png" id="1_wm2v5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhvrl"]

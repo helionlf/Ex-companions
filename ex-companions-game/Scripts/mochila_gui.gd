@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 @onready var lista_materiais = $Abas/Materiais/ListaMaterias
 
@@ -46,8 +46,8 @@ func atualizar_interface() -> void:
 					icone.texture = load("res://Testes/Basic Grass Biom things 1-1.png (2).png")
 				"pedra":
 					icone.texture = load("res://Testes/Basic Grass Biom things 1-1.png (1).png")
-				# "ovo":
-				# 	icone.texture = load("res://Caminho/Do/Seu/Ovo.png")
+				"pena":
+					icone.texture = load("res://Testes/Pena.png")
 			
 			# Adiciona a imagem na linha (Substituímos aquele cor_temp daqui!)
 			linha.add_child(icone) 

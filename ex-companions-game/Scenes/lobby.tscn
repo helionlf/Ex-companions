@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://xgfdtgbukka0"]
 
 [ext_resource type="Texture2D" uid="uid://d0ftp4vx0wdxm" path="res://Testes/Dungeon_Tileset.png" id="1_3nhmk"]
+[ext_resource type="Script" uid="uid://duey1db0rx8it" path="res://Scripts/lobby.gd" id="1_4233d"]
 [ext_resource type="PackedScene" uid="uid://b1ngqk71yj2v7" path="res://Scenes/teste_companion.tscn" id="2_ssaqe"]
 [ext_resource type="PackedScene" uid="uid://djtiw6asvulim" path="res://Scenes/player.tscn" id="4_6c803"]
 [ext_resource type="PackedScene" uid="uid://bpncof2v6gajq" path="res://Scenes/enemy.tscn" id="4_cdtcn"]
 [ext_resource type="PackedScene" uid="uid://d04u0s1nqk60x" path="res://Testes/obstaculoteste.tscn" id="5_ruji2"]
+[ext_resource type="PackedScene" uid="uid://bqp8amvmt6i2l" path="res://Scenes/upgrade.tscn" id="6_jigxi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6c803"]
 texture = ExtResource("1_3nhmk")
@@ -148,6 +150,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(304, 112, 304, 208, 560
 agent_radius = 5.0
 
 [node name="Lobby" type="Node2D" unique_id=215627956]
+script = ExtResource("1_4233d")
 
 [node name="TileMap" type="TileMap" parent="." unique_id=897305886]
 texture_filter = 1
@@ -172,12 +175,17 @@ position = Vector2(386, 167)
 [node name="TesteCompanion" parent="." unique_id=1145659430 instance=ExtResource("2_ssaqe")]
 position = Vector2(367, 168)
 
-[node name="enemy" parent="." unique_id=1907062819 node_paths=PackedStringArray("target") groups=["Enemy"] instance=ExtResource("4_cdtcn")]
+[node name="enemy" parent="." unique_id=1907062819 groups=["Enemy"] instance=ExtResource("4_cdtcn")]
 position = Vector2(601, 149)
-target = NodePath("../player")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1468367629]
 navigation_polygon = SubResource("NavigationPolygon_avk8s")
 
 [node name="obstaculoteste" parent="NavigationRegion2D" unique_id=1406300636 instance=ExtResource("5_ruji2")]
 position = Vector2(457, 163)
+
+[node name="Upgrade" parent="." unique_id=375341357 instance=ExtResource("6_jigxi")]
+visible = false
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

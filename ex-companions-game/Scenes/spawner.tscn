@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dcrn6o21cgnor"]
 
 [ext_resource type="Texture2D" uid="uid://bxvhb1mqik6xt" path="res://Testes/Free_Chicken_House.png" id="1_2bop2"]
-[ext_resource type="Script" uid="uid://blra8xwq3j5hi" path="res://Scenes/spawner.gd" id="1_mdv8j"]
+[ext_resource type="Script" uid="uid://blra8xwq3j5hi" path="res://Scripts/spawner.gd" id="1_mdv8j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mdv8j"]
 size = Vector2(34, 44)

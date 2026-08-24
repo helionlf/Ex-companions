@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c3c7cny8g8q7f" path="res://Scripts/enemy.gd" id="1_yhb46"]
 [ext_resource type="Texture2D" uid="uid://b1q6ndhqjlgce" path="res://Testes/Free Chicken Sprites.png" id="2_287tu"]
+[ext_resource type="Texture2D" uid="uid://bhaeifxpxkfiv" path="res://Testes/Free Chicken Sprites Boss.png" id="3_0830c"]
 [ext_resource type="Script" uid="uid://dota6f4ux4v5e" path="res://Scripts/hurtbox.gd" id="4_e6ek8"]
 [ext_resource type="Script" uid="uid://csgtb5fiax586" path="res://Scripts/hitbox.gd" id="5_b5n7v"]
 
@@ -24,12 +25,36 @@ region = Rect2(32, 16, 16, 16)
 atlas = ExtResource("2_287tu")
 region = Rect2(48, 16, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_haro7"]
+atlas = ExtResource("3_0830c")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56vhr"]
+atlas = ExtResource("3_0830c")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ta2yt"]
+atlas = ExtResource("3_0830c")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m4x7e"]
+atlas = ExtResource("3_0830c")
+region = Rect2(48, 16, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_8uf12"]
 atlas = ExtResource("2_287tu")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_po0sg"]
 atlas = ExtResource("2_287tu")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vt4ob"]
+atlas = ExtResource("3_0830c")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hgeoe"]
+atlas = ExtResource("3_0830c")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_k5ier"]
@@ -53,6 +78,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_haro7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56vhr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ta2yt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m4x7e")
+}],
+"loop": true,
+"name": &"Andando_Boss",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_8uf12")
 }, {
 "duration": 1.0,
@@ -61,6 +103,17 @@ animations = [{
 "loop": true,
 "name": &"Parado",
 "speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vt4ob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hgeoe")
+}],
+"loop": true,
+"name": &"Parado_Boss",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yhb46"]
@@ -80,10 +133,12 @@ shape = SubResource("CircleShape2D_287tu")
 texture_filter = 1
 scale = Vector2(0.9399998, 0.9399998)
 sprite_frames = SubResource("SpriteFrames_k5ier")
-animation = &"Parado"
+animation = &"Andando"
 autoplay = "Andando"
 
 [node name="hurtbox" type="Area2D" parent="." unique_id=1789069451 node_paths=PackedStringArray("owner_node") groups=["hurtbox"]]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("4_e6ek8")
 owner_node = NodePath("..")
 

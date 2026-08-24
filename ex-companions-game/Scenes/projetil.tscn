@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://yda8qq8i7411"]
+
+[ext_resource type="Script" uid="uid://kq185pxx2gfh" path="res://Scripts/projetil.gd" id="1_3onwi"]
+[ext_resource type="Texture2D" uid="uid://bghj4xmc6thye" path="res://Testes/Basic_Grass_Biom_things.png" id="2_e1qxg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tj6io"]
+size = Vector2(4.5, 4.6865363)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u11v5"]
+atlas = ExtResource("2_e1qxg")
+region = Rect2(36, 54, 9, 6)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_byf7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u11v5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Projetil" type="Area2D" unique_id=579598521]
+rotation = 1.5617296
+scale = Vector2(1.1596651, 1.1596651)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_3onwi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=624858129]
+position = Vector2(-0.24999996, 0.84326804)
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_tj6io")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=377851837]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_byf7s")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=145422043]
+rect = Rect2(-2.487327, -1.6745543, 4.668634, 4.7386017)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

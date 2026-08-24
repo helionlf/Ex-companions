@@ -15,7 +15,7 @@ const Map_chunks_y = 6
 
 const Chance_Spawner = 0.002
 const Chance_Arvore = 0.003
-const Chance_Pedra = 0.02
+const Chance_Pedra = 0.014
 const Chance_Saida = 0.009
 
 var rng = RandomNumberGenerator.new()

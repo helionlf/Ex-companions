@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://bl6ehs1kycgjq" path="res://Scripts/mapa_procedural_teste.gd" id="1_m8m8c"]
 [ext_resource type="Texture2D" uid="uid://rssxqoxeh5hm" path="res://Testes/Grass.png" id="2_anrwn"]
 [ext_resource type="Script" uid="uid://c0l68t7sljakd" path="res://Scripts/mini_mapa.gd" id="3_anrwn"]
-[ext_resource type="PackedScene" uid="uid://d2o41e8qy6orf" path="res://Scenes/mochila_gui.tscn" id="4_u8ur3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u8ur3"]
 texture = ExtResource("2_anrwn")
@@ -108,9 +107,3 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer" unique_id=1098975896]
-
-[node name="MochilaGUI" parent="CanvasLayer" unique_id=1280083051 instance=ExtResource("4_u8ur3")]
-offset_left = 375.0
-offset_top = 201.0
-offset_right = 415.0
-offset_bottom = 241.0

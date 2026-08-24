@@ -13,4 +13,4 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Interagir") and pode_apertar:
-		get_tree().change_scene_to_file("res://Scenes/MapaProceduralTeste.tscn")
+		get_tree().change_scene_to_file("res://Scenes/lobby_final.tscn")

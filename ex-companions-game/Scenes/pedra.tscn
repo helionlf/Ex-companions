@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cwlb4jfksjedw"]
 
 [ext_resource type="Texture2D" uid="uid://bghj4xmc6thye" path="res://Testes/Basic_Grass_Biom_things.png" id="1_eitgx"]
-[ext_resource type="Script" uid="uid://dmio1cooailrm" path="res://Scenes/pedra.gd" id="1_sljdl"]
+[ext_resource type="Script" uid="uid://dmio1cooailrm" path="res://Scripts/pedra.gd" id="1_sljdl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sljdl"]
 size = Vector2(12, 12)
@@ -10,7 +10,7 @@ size = Vector2(12, 12)
 size = Vector2(14.062491, 14.062491)
 
 [node name="Pedra" type="StaticBody2D" unique_id=509825122]
-scale = Vector2(1.2800008, 1.2800008)
+scale = Vector2(0.83999974, 0.83999974)
 script = ExtResource("1_sljdl")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1823695391]
