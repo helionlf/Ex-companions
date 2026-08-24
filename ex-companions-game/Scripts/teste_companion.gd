@@ -5,6 +5,9 @@ extends CharacterBody2D
 @export var attack_range = 30.0
 @export var player_follow_distance = 20.0 
 
+var random_attack = 0
+var current_attack = 0
+
 func _physics_process(_delta: float) -> void:
 	velocity = Vector2.ZERO
 
@@ -30,3 +33,18 @@ func _physics_process(_delta: float) -> void:
 			velocity = direction * speed
 
 	move_and_collide(velocity * _delta)
+	
+func choose_attack():
+	var r_attack = randi_range(1, 3)
+	
+	match r_attack:
+		1:
+			pass
+		2:
+			pass
+			#var projetil
+			# Instanciar ataque de projetil
+		3:
+			pass
+		_:
+			pass
