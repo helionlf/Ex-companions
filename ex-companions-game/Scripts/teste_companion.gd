@@ -5,14 +5,17 @@ extends CharacterBody2D
 @export var attack_range = 30.0
 @export var player_follow_distance = 20.0 
 
+var enemy
+var player
+
 var random_attack = 0
 var current_attack = 0
 
 func _physics_process(_delta: float) -> void:
 	velocity = Vector2.ZERO
 
-	var enemy = get_tree().get_first_node_in_group("Enemy")
-	var player = get_tree().get_first_node_in_group("Player")
+	enemy = get_tree().get_first_node_in_group("Enemy")
+	player = get_tree().get_first_node_in_group("Player")
 
 	if is_instance_valid(enemy) and global_position.distance_to(enemy.global_position) < chase_range:
 		var distance_to_enemy = global_position.distance_to(enemy.global_position)
@@ -41,9 +44,10 @@ func choose_attack():
 		1:
 			pass
 		2:
-			pass
-			#var projetil
-			# Instanciar ataque de projetil
+			if enemy:
+				var projetil = preload("res://Testes/Companion_attack_projetil.tscn").instantiate
+				projetil.configurar_ataque("raio_psiquico", enemy)
+				add_child(projetil)
 		3:
 			pass
 		_:

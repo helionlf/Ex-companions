@@ -28,6 +28,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6bdlb"]
+size = Vector2(6, 3)
+
 [node name="Companion_attack_projetil" type="AnimatedSprite2D" unique_id=775538321]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_iwm4h")
@@ -36,3 +39,12 @@ frame_progress = 0.7308764
 script = ExtResource("2_6bdlb")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=500729614]
+
+[node name="colisoes" type="Area2D" parent="." unique_id=2110508212]
+
+[node name="raio_psiquico" type="CollisionShape2D" parent="colisoes" unique_id=1176935670]
+position = Vector2(1, -0.5)
+shape = SubResource("RectangleShape2D_6bdlb")
+disabled = true
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
