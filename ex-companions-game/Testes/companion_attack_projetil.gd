@@ -3,30 +3,29 @@ extends AnimatedSprite2D
 
 
 var attack_name : String
-var target = PackedScene
+var target : CharacterBody2D
+var speed : int
+var direction: Vector2
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	desativar_colisoes()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if attack_name and target:
-		lancar_projetil(attack_name, target)
+	if target:
+		position += direction * speed * delta
 
-func lancar_projetil(name, target):
-	match name:
+func choose_projetil():
+	match attack_name:
 		"raio_psiquico":
 			$colisoes/raio_psiquico.disabled = false
-			raio_psiquico(target)
+			raio_psiquico()
 
 		"bola_de_fogo":
 			pass
 
-func raio_psiquico(target, speed = 20):
+func raio_psiquico():
 	$".".play("attack_02")
-	
+	#se tiver mais coisas alem de animação
 	
 func boa_de_fogo():
 	pass
@@ -35,9 +34,12 @@ func desativar_colisoes():
 	for c in $colisoes.get_children():
 		c.disabled = true
 
-func configurar_ataque(name, target_scn):
-	attack_name = name
+func configurar_ataque(ataque, target_scn, vel):
+	attack_name = ataque
 	target = target_scn
+	speed = vel
+	
+	direction = global_position.direction_to(target.global_position)
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()

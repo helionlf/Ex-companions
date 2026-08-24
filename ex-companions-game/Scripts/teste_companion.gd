@@ -10,6 +10,7 @@ var player
 
 var random_attack = 0
 var current_attack = 0
+var can_attack = true
 
 func _physics_process(_delta: float) -> void:
 	velocity = Vector2.ZERO
@@ -24,8 +25,12 @@ func _physics_process(_delta: float) -> void:
 			var direction = (enemy.global_position - global_position).normalized()
 			velocity = direction * speed
 		
-		if distance_to_enemy < attack_range:
+		if distance_to_enemy < attack_range and can_attack:
 			print("atacando inimigo!")
+			can_attack = false
+			choose_attack()
+			await get_tree().create_timer(2.0).timeout
+			can_attack = true
 
 
 	elif is_instance_valid(player):
@@ -45,9 +50,13 @@ func choose_attack():
 			pass
 		2:
 			if enemy:
-				var projetil = preload("res://Testes/Companion_attack_projetil.tscn").instantiate
-				projetil.configurar_ataque("raio_psiquico", enemy)
+				var projetil = preload("res://Testes/Companion_attack_projetil.tscn").instantiate()
 				add_child(projetil)
+
+				projetil.global_position = global_position
+				projetil.configurar_ataque("raio_psiquico", enemy, 20)
+				projetil.choose_projetil()
+
 		3:
 			pass
 		_:
