@@ -11,7 +11,12 @@ func _ready() -> void:
 	desativar_colisoes()
 
 func _process(delta: float) -> void:
+	# cada if é uma lógica que execulta diferentes movimentações de projectil dependendo do ataque
 	if target:
+		if attack_name == "raio":
+			direction = global_position.direction_to(target.global_position)
+		
+		# movimentação básica de movimento (em uma única direção)
 		position += direction * speed * delta
 
 func choose_projetil():
@@ -34,10 +39,10 @@ func desativar_colisoes():
 	for c in $colisoes.get_children():
 		c.disabled = true
 
-func configurar_ataque(ataque, target_scn, vel):
-	attack_name = ataque
-	target = target_scn
-	speed = vel
+func configurar_ataque(attack_name_, target_, speed_):
+	attack_name = attack_name_
+	target = target_
+	speed = speed_
 	
 	direction = global_position.direction_to(target.global_position)
 

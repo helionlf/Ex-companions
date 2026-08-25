@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 @export var speed = 75.0
-@export var chase_range = 50.0
-@export var attack_range = 30.0
+@export var chase_range = 90.0
+@export var attack_range = 50.0
 @export var player_follow_distance = 20.0 
 
 var enemy
@@ -43,7 +43,8 @@ func _physics_process(_delta: float) -> void:
 	move_and_collide(velocity * _delta)
 	
 func choose_attack():
-	var r_attack = randi_range(1, 3)
+	var r_attack = 2
+	#var r_attack = randi_range(1, 3)
 	
 	match r_attack:
 		1:
@@ -51,10 +52,10 @@ func choose_attack():
 		2:
 			if enemy:
 				var projetil = preload("res://Testes/Companion_attack_projetil.tscn").instantiate()
-				add_child(projetil)
+				get_tree().current_scene.add_child(projetil)
 
 				projetil.global_position = global_position
-				projetil.configurar_ataque("raio_psiquico", enemy, 20)
+				projetil.configurar_ataque("raio_psiquico", enemy, 100)
 				projetil.choose_projetil()
 
 		3:
