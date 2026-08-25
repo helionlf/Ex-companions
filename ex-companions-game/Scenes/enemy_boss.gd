@@ -71,7 +71,7 @@ func _physics_process(_delta: float) -> void:
 		if is_instance_valid(time):
 			time.start()
 
-	move_and_collide()
+	move_and_slide()
 	
 	# Animações
 	if velocity == Vector2.ZERO:
