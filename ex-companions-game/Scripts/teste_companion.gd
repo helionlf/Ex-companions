@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+
 @export var speed = 75.0
 @export var chase_range = 90.0
 @export var attack_range = 50.0

@@ -1,7 +1,6 @@
 extends AnimatedSprite2D
 
 
-
 var attack_name : String
 var target : CharacterBody2D
 var speed : int
@@ -13,7 +12,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	# cada if é uma lógica que execulta diferentes movimentações de projectil dependendo do ataque
 	if target:
-		if attack_name == "raio":
+		if attack_name == "bola_de_fogo":
 			direction = global_position.direction_to(target.global_position)
 		
 		# movimentação básica de movimento (em uma única direção)
@@ -26,6 +25,7 @@ func choose_projetil():
 			raio_psiquico()
 
 		"bola_de_fogo":
+			#nome fiquiticio. terá um case para cada ataque
 			pass
 
 func raio_psiquico():
