@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://co3g2frvkdtab" path="res://Testes/Fire Effect and Bullet 16x16.png" id="1_vsd8n"]
 [ext_resource type="Script" uid="uid://c1w6y6g3k8up5" path="res://Testes/companion_attack_projetil.gd" id="2_6bdlb"]
+[ext_resource type="Script" uid="uid://csgtb5fiax586" path="res://Scripts/hitbox.gd" id="3_5ts15"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iboar"]
 atlas = ExtResource("1_vsd8n")
@@ -40,11 +41,16 @@ script = ExtResource("2_6bdlb")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=500729614]
 
-[node name="colisoes" type="Area2D" parent="." unique_id=2110508212]
+[node name="colisoes" type="Node2D" parent="." unique_id=1864081783]
 
-[node name="raio_psiquico" type="CollisionShape2D" parent="colisoes" unique_id=1176935670]
+[node name="hitbox" type="Area2D" parent="colisoes" unique_id=2110508212 node_paths=PackedStringArray("owner_node") groups=["hitbox", "projetil"]]
+script = ExtResource("3_5ts15")
+owner_node = NodePath("../..")
+
+[node name="raio_psiquico" type="CollisionShape2D" parent="colisoes/hitbox" unique_id=1176935670]
 position = Vector2(1, -0.5)
 shape = SubResource("RectangleShape2D_6bdlb")
 disabled = true
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="colisoes/hitbox" to="." method="_on_hitbox_area_entered"]

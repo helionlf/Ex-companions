@@ -53,11 +53,11 @@ func choose_attack():
 		2:
 			if enemy:
 				var projetil = preload("res://Testes/Companion_attack_projetil.tscn").instantiate()
-				get_tree().current_scene.add_child(projetil)
 
 				projetil.global_position = global_position
 				projetil.configurar_ataque("raio_psiquico", enemy, 100)
-				projetil.choose_projetil()
+				
+				get_tree().current_scene.add_child(projetil)
 
 		3:
 			pass
