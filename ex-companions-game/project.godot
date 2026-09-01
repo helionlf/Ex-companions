@@ -23,6 +23,7 @@ InventarioGlobal="*uid://dyir1x4tg0j7i"
 
 Enemy=""
 Player=""
+Companion=""
 
 [input]
 

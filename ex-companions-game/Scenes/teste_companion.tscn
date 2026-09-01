@@ -28,7 +28,7 @@ size = Vector2(11, 13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_klske"]
 
-[node name="TesteCompanion" type="CharacterBody2D" unique_id=1145659430]
+[node name="TesteCompanion" type="CharacterBody2D" unique_id=1145659430 groups=["Companion"]]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_2xmlj")
